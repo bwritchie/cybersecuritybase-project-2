@@ -67,7 +67,7 @@ Therefore, it appears straightforward to carry out reconnaissance and scanning
 without triggering Snort if the attacker is patient, limits the scanning rate,
 and carefully selects ports to be scanned.  
 
-### Attack 3: access via Elasticsearch CVE-2014-3120 (Detected)
+### Attack 3: Remote Shell via Elasticsearch CVE-2014-3120 (Detected)
 
 Running `nmap --script nmap-vulners,vulscan --script-args vulscandb=scipvuldb.csv -sV 192.168.1.6` identified numerous potential vulnerabilities. My first exploit
 was against Elasticsearch:  
@@ -102,7 +102,7 @@ have been easily detected. The attack also left `.tmp` and `.jar` files in
 `C:\Windows\Temp` directory, which would provide evidence of compromise in the
 case of later forensic analysis.
 
-### Attack 4: Default password in Apache Axis2 CVE-2010-0219 (Detected)
+### Attack 4: Remote Shell via Default password in Apache Axis2 CVE-2010-0219 (Detected)
 
 The deployed Apache Tomcat server includes a default password of `axis2` for
 the `admin` account. This can be exploited to create a shell with metasploit
@@ -134,7 +134,7 @@ originating on port 50810 (used by Meterpreter) on the Kali host. However, there
 were far fewer entries than in attack 3, and it is possible that these might
 have been overlooked on a busy system.
 
-### Attack 5: Default password on Wordpress wp-admin (Not Detected)
+### Attack 5: Weak password on Wordpress wp-admin (Not Detected)
 
 I ran a few more successful metasploit attacks, but all were detected by Snort,
 so for the final attack, I assumed that attack 4 (which was the 'quietest') was
@@ -168,8 +168,9 @@ the username, and managed to log in to
 
 with `vagrant:vagrant`. This was not detected by Snort, and it appears to be a
 routine login to `wp-admin`, but a wordpress administrator might have noticed
-failed logins from other users. However, this was the closest that I was able to
-get to an system compromise without any detection from Snort.  
+failed logins from other users. However, this would allow the Wordpress install
+to be modified (e.g. to distribute malware) and this was the closest that I was
+able to get to an system compromise without any detection from Snort.  
 
 ## Conclusion
 
